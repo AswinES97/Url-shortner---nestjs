@@ -8,12 +8,13 @@ export class SignupMiddleware implements NestMiddleware {
     const userData = req.body as UserInfo;
     const passRegex =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/;
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-    if (!userData.username) {
-      return res.status(400).send('invalid username');
+    if (!userData.mail.match(emailRegex)) {
+      return res.status(400).send('invalid mail');
     }
 
-    if (userData.password.match(passRegex)) {
+    if (!userData.password.match(passRegex)) {
       return res.status(400).send('invalid password');
     }
     next();

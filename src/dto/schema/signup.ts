@@ -1,4 +1,5 @@
 export class UserInfo {
-  readonly username: string;
-  readonly password: string;
+  readonly userId?: string;
+  readonly mail?: string;
+  readonly password?: string;
 }
