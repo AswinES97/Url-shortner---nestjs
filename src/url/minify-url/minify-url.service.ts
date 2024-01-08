@@ -5,7 +5,15 @@ import { UrlService } from 'src/dbsrvs/svc/url/url.service';
 export class MinifyUrlService {
   constructor(private urlSvc: UrlService) {}
   async minify(data: Iinput) {
-    // await this.urlSvc.
+    return await this.urlSvc.addNewUrl(data);
+  }
+
+  async getUser(userId: string) {
+    return await this.urlSvc.findUser(userId);
+  }
+
+  async getUrl(url: string) {
+    return await this.urlSvc.findUrl(url);
   }
 }
 
