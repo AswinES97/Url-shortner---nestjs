@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../../models/user.model';
 import { PasswordService } from 'src/shared/password/password.service';
 import { UserInfo } from 'src/dto/schema/signup';
 

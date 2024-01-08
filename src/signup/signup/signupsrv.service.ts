@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/dbsrvs/users/users.service';
+import { UsersService } from 'src/dbsrvs/svc/users/users.service';
 import { UserInfo } from 'src/dto/schema/signup';
 
 @Injectable()

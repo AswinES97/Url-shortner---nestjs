@@ -9,11 +9,13 @@ import { AppService } from './app.service';
 import { SignupModule } from './signup/signup.module';
 import { SignupMiddleware } from './middleware/signup';
 import { LoginModule } from './login/login.module';
+import { UrlModule } from './url/url.module';
+import { UrlService } from './dbsrvs/svc/url/url.service';
 
 @Module({
-  imports: [SignupModule, LoginModule],
+  imports: [SignupModule, LoginModule, UrlModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UrlService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

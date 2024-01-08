@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SignupController } from './signup/signup.controller';
 import { SignupsrvService } from './signup/signupsrv.service';
-import { UsersService } from 'src/dbsrvs/users/users.service';
+import { UsersService } from 'src/dbsrvs/svc/users/users.service';
 import { PasswordService } from 'src/shared/password/password.service';
 
 @Module({

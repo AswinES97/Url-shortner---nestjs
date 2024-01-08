@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from 'src/dbsrvs/users/users.service';
+import { UsersService } from 'src/dbsrvs/svc/users/users.service';
 
 @Injectable()
 export class LoginService {
