@@ -11,9 +11,9 @@ export class MinifyUrlService {
   async getUser(userId: string) {
     return await this.urlSvc.findUser(userId);
   }
-
-  async getUrl(url: string) {
-    return await this.urlSvc.findUrl(url);
+  r;
+  async getUrl(data: IGetUrlParameters) {
+    return await this.urlSvc.findUrl(data);
   }
 }
 
@@ -21,4 +21,8 @@ export interface Iinput {
   url: string;
   userId: string;
   miniUrl: string;
+}
+export interface IGetUrlParameters {
+  miniUrl: string;
+  userId: string;
 }

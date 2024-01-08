@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { urlModel } from 'src/dbsrvs/models/url';
-import { Iinput } from 'src/url/minify-url/minify-url.service';
+import {
+  IGetUrlParameters,
+  Iinput,
+} from 'src/url/minify-url/minify-url.service';
 
 @Injectable()
 export class UrlService {
@@ -21,13 +24,20 @@ export class UrlService {
     return await urlModel.findOne({ userId });
   }
 
-  async findUrl(url: string) {
-    return await urlModel.findOne({
-      urls: {
-        $elemMatch: {
-          url: url,
+  async findUrl(data: IGetUrlParameters) {
+    return await urlModel.find(
+      {
+        userId: data.userId,
+        urls: {
+          $elemMatch: {
+            miniUrl: data.miniUrl,
+          },
         },
       },
-    });
+      {
+        _id: 0,
+        'urls.$': 1,
+      },
+    );
   }
 }

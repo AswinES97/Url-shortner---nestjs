@@ -5,6 +5,8 @@ import {
   // BadRequestException,
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -19,7 +21,6 @@ export class MinifyUrlController {
   @UseGuards(AuthGuardGuard)
   @Post()
   async minifyUrl(@Body() body: Idata) {
-    console.log('body: ', body);
     const user: UserInfo = JSON.parse(body.user.data as string);
     const doesUserExist = await this.minifyUrlSvc.getUser(user.userId);
 
@@ -35,7 +36,6 @@ export class MinifyUrlController {
       console.log(doesUserExist);
       const urls = doesUserExist.urls;
       const doesUrlExist = _.findIndex(urls, (o) => o.url === body.url);
-      console.log('lodash: ', doesUrlExist);
 
       if (doesUrlExist !== -1) {
         throw new BadRequestException('Url already Minified');
@@ -47,6 +47,18 @@ export class MinifyUrlController {
       });
       return await doesUserExist.save();
     }
+  }
+
+  @UseGuards(AuthGuardGuard)
+  @Get(':miniUrl')
+  async getUrl(@Param() miniUrl: string, @Body() body: any) {
+    const userData = JSON.parse(body.user.data);
+    const response = await this.minifyUrlSvc.getUrl({
+      miniUrl: miniUrl['miniUrl'],
+      userId: userData.userId,
+    });
+    const url = response[0]['urls'][0].url;
+    return { url };
   }
 }
 
