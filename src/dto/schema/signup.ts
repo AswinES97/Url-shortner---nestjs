@@ -3,9 +3,3 @@ export class UserInfo {
   readonly mail?: string;
   readonly password?: string;
 }
-
-export interface UserDoc {
-  userId: string | unknown;
-  mail: string;
-  password: string;
-}

@@ -8,14 +8,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SignupModule } from './signup/signup.module';
 import { SignupMiddleware } from './middleware/signup';
-import { JwtService } from './shared/jwt/jwt.service';
-import { UsersService } from './dbsrvs/users/users.service';
-import { PasswordService } from './shared/password/password.service';
+import { LoginModule } from './login/login.module';
 
 @Module({
-  imports: [SignupModule],
+  imports: [SignupModule, LoginModule],
   controllers: [AppController],
-  providers: [AppService, JwtService, UsersService, PasswordService],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
