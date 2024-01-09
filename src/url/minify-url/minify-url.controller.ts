@@ -7,6 +7,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -17,6 +18,22 @@ import { UserInfo } from 'src/dto/schema/signup';
 @Controller('minify-url')
 export class MinifyUrlController {
   constructor(private minifyUrlSvc: MinifyUrlService) {}
+
+  @UseGuards(AuthGuardGuard)
+  @Get()
+  async getAllUrl(@Body() body: any) {
+    const userData = JSON.parse(body.user.data as string);
+    const response = await this.minifyUrlSvc.getAllUrl(userData.userId);
+    const urlData = _.each(response.urls, (data) => {
+      return {
+        url: data.url,
+        miniUrl: data.miniUrl,
+      };
+    });
+    console.log(urlData);
+
+    return urlData;
+  }
 
   @UseGuards(AuthGuardGuard)
   @Post()
@@ -59,6 +76,21 @@ export class MinifyUrlController {
     });
     const url = response[0]['urls'][0].url;
     return { url };
+  }
+
+  @UseGuards(AuthGuardGuard)
+  @Patch(':miniUrl')
+  async updateUrlArray(@Param() miniUrl: string, @Body() body: any) {
+    const userData = JSON.parse(body.user.data);
+    const response = await this.minifyUrlSvc.updateUrlArray({
+      userId: userData.userId,
+      miniUrl: miniUrl['miniUrl'],
+    });
+    if (response.modifiedCount !== 1) {
+      throw new BadRequestException('unable to remove url');
+    } else {
+      return { status: 'Success', message: 'Url removed successfully' };
+    }
   }
 }
 

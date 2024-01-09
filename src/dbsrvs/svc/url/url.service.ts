@@ -7,6 +7,10 @@ import {
 
 @Injectable()
 export class UrlService {
+  async getAllUrls(userId: string) {
+    return await urlModel.findOne({ userId }, { _id: 0 });
+  }
+
   async addNewUrl(data: Iinput) {
     const newAddedUrl = new urlModel({
       userId: data.userId,
@@ -39,5 +43,16 @@ export class UrlService {
         'urls.$': 1,
       },
     );
+  }
+
+  async removeUrl(data: IGetUrlParameters) {
+    return await urlModel.updateOne({
+      userId: data.userId,
+      $pull: {
+        urls: {
+          miniUrl: data.miniUrl,
+        },
+      },
+    });
   }
 }

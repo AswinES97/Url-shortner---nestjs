@@ -4,6 +4,10 @@ import { UrlService } from 'src/dbsrvs/svc/url/url.service';
 @Injectable()
 export class MinifyUrlService {
   constructor(private urlSvc: UrlService) {}
+  async getAllUrl(userId: string) {
+    return await this.urlSvc.getAllUrls(userId);
+  }
+
   async minify(data: Iinput) {
     return await this.urlSvc.addNewUrl(data);
   }
@@ -11,9 +15,13 @@ export class MinifyUrlService {
   async getUser(userId: string) {
     return await this.urlSvc.findUser(userId);
   }
-  r;
+
   async getUrl(data: IGetUrlParameters) {
     return await this.urlSvc.findUrl(data);
+  }
+
+  async updateUrlArray(data: IGetUrlParameters) {
+    return await this.urlSvc.removeUrl(data);
   }
 }
 
